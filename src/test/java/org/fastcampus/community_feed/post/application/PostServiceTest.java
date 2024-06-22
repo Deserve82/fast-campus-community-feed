@@ -1,0 +1,83 @@
+package org.fastcampus.community_feed.post.application;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.fastcampus.community_feed.common.FakeObjectFactory;
+import org.fastcampus.community_feed.post.application.dto.CreatePostRequestDto;
+import org.fastcampus.community_feed.post.application.dto.LikeRequestDto;
+import org.fastcampus.community_feed.post.application.dto.UpdatePostRequestDto;
+import org.fastcampus.community_feed.post.domain.Post;
+import org.fastcampus.community_feed.post.domain.PostPublicationState;
+import org.fastcampus.community_feed.post.domain.content.Content;
+import org.fastcampus.community_feed.user.application.UserService;
+import org.fastcampus.community_feed.user.application.dto.CreateUserRequestDto;
+import org.fastcampus.community_feed.user.domain.User;
+import org.junit.jupiter.api.Test;
+
+class PostServiceTest {
+
+    private final UserService userService = FakeObjectFactory.getUserService();
+    private final PostService postService = FakeObjectFactory.getPostService();
+
+    private final User user = userService.createUser(new CreateUserRequestDto("user1", null));;
+    private final User otherUser = userService.createUser(new CreateUserRequestDto("user1", null));;
+
+
+    @Test
+    void givenPostRequestDtoWhenCreateThenReturnPost() {
+        // given
+        CreatePostRequestDto dto = new CreatePostRequestDto(user.getId(), "test-content", PostPublicationState.PUBLIC);
+
+        // when
+        Post savedPost = postService.createPost(dto);
+
+        // then
+        Post post = postService.getPost(savedPost.getId());
+        assertEquals(savedPost, post);
+    }
+
+    @Test
+    void givenCreatePostWhenUpdateThenReturnUpdatedPost() {
+        // given
+        CreatePostRequestDto dto = new CreatePostRequestDto(user.getId(),"test-content", PostPublicationState.PUBLIC);
+        Post savedPost = postService.createPost(dto);
+
+        // when
+        UpdatePostRequestDto updateDto = new UpdatePostRequestDto(savedPost.getId(), user.getId(), "updated-content", PostPublicationState.PRIVATE);
+        Post updatedPost = postService.updatePost(updateDto);
+
+        // then
+        Content content = updatedPost.getContent();
+        assertEquals("updated-content", content.getContentText());
+        assertEquals(PostPublicationState.PRIVATE, updatedPost.getState());
+    }
+
+    @Test
+    void givenCreatedPostWhenLikedThenReturnPostWithLike() {
+        // given
+        CreatePostRequestDto dto = new CreatePostRequestDto(user.getId(),"test-content", PostPublicationState.PUBLIC);
+        Post savedPost = postService.createPost(dto);
+
+        // when
+        LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId(), savedPost.getId());
+        postService.likePost(likeRequestDto);
+
+        // then
+        assertEquals(1, savedPost.getLikeCount());
+    }
+
+    @Test
+    void givenCreatedPostWhenUnlikedThenReturnPostWithoutLike() {
+        // given
+        CreatePostRequestDto dto = new CreatePostRequestDto(user.getId(),"test-content", PostPublicationState.PUBLIC);
+        Post savedPost = postService.createPost(dto);
+
+        // when
+        LikeRequestDto likeRequestDto = new LikeRequestDto(otherUser.getId(), savedPost.getId());
+        postService.likePost(likeRequestDto);
+        postService.unlikePost(likeRequestDto);
+
+        // then
+        assertEquals(0, savedPost.getLikeCount());
+    }
+}
