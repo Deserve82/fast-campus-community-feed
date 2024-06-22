@@ -1,4 +1,4 @@
-package org.fastcampus.community_feed.post.domain.common;
+package org.fastcampus.community_feed.post.domain.content;
 
 import java.time.LocalDateTime;
 
@@ -14,5 +14,13 @@ public class DatetimeInfo {
   public void updateEditDatetime() {
     this.isEdited = true;
     this.dateTime = LocalDateTime.now();
+  }
+
+  public LocalDateTime getDateTime() {
+    return dateTime;
+  }
+
+  public boolean isEdited() {
+    return isEdited;
   }
 }

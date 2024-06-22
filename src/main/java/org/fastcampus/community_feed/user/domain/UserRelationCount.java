@@ -16,4 +16,8 @@ public class UserRelationCount {
       count--;
     }
   }
+
+  public int getCount() {
+    return count;
+  }
 }
