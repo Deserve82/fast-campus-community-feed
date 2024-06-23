@@ -1,4 +1,4 @@
-package org.fastcampus.community_feed.post.domain.content;
+package org.fastcampus.community_feed.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
