@@ -1,19 +1,21 @@
-package org.fastcampus.community_feed.user.domain;
+package org.fastcampus.community_feed.post.domain.content;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.fastcampus.community_feed.common.domain.PositiveIntegerCounter;
 import org.junit.jupiter.api.Test;
 
 
-class UserRelationCountTest {
+
+class PositiveIntegerCounterTest {
 
     @Test
     void givenCreatedWhenIncreaseThenCountIsOne() {
         // given
-        UserRelationCount count = new UserRelationCount();
+        PositiveIntegerCounter count = new PositiveIntegerCounter();
 
         // when
-        count.increaseCount();
+        count.increase();
 
         // then
         assertEquals(1, count.getCount());
@@ -22,23 +24,23 @@ class UserRelationCountTest {
     @Test
     void givenCreatedAndLikedWhenDecreaseThenCountIsOne() {
         // given
-        UserRelationCount count = new UserRelationCount();
-        count.increaseCount();
+        PositiveIntegerCounter count = new PositiveIntegerCounter();
+        count.increase();
 
         // when
-        count.decreaseCount();
+        count.decrease();
 
         // then
         assertEquals(0, count.getCount());
     }
 
     @Test
-    void givenCreatedWhenUnlikeThenCountIsZero() {
+    void givenCreatedWhenDecreaseThenCountIsZero() {
         // given
-        UserRelationCount count = new UserRelationCount();
+        PositiveIntegerCounter count = new PositiveIntegerCounter();
 
         // when
-        count.decreaseCount();
+        count.decrease();
 
         // then
         assertEquals(0, count.getCount());
