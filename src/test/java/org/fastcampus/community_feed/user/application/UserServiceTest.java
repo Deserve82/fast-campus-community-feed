@@ -17,10 +17,10 @@ class UserServiceTest {
         CreateUserRequestDto dto = new CreateUserRequestDto("John", "www.naver.com");
 
         // when
-        userService.createUser(dto);
+        User savedUser = userService.createUser(dto);
 
         // then
-        User user = userService.getUser(1L);
-        assertEquals(1L, user.getId());
+        User foundUser = userService.getUser(savedUser.getId());
+        assertEquals(savedUser.getId(), foundUser.getId());
     }
 }
