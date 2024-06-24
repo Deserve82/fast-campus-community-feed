@@ -1,9 +1,8 @@
-package org.fastcampus.community_feed.post.domain;
+package org.fastcampus.community_feed.post.domain.content;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.fastcampus.community_feed.post.domain.content.PostContent;
 import org.junit.jupiter.api.Test;
 
 class PostContentTest {

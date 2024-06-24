@@ -10,7 +10,7 @@ public class Post {
   private final User author;
   private final Content content;
   private PostPublicationState state;
-  private PositiveIntegerCounter positiveIntegerCounter;
+  private final PositiveIntegerCounter likeCount;
 
   public Post(Long id, User author, Content content, PostPublicationState state, PositiveIntegerCounter positiveIntegerCounter) {
     if (author == null) {
@@ -24,7 +24,7 @@ public class Post {
     this.author = author;
     this.content = content;
     this.state = state;
-    this.positiveIntegerCounter = positiveIntegerCounter;
+    this.likeCount = positiveIntegerCounter;
   }
 
   public Post(Long id, User author, Content content) {
@@ -42,11 +42,11 @@ public class Post {
     if (author.equals(user)) {
       throw new IllegalArgumentException("author cannot like own post");
     }
-    positiveIntegerCounter.increase();
+    likeCount.increase();
   }
 
   public void unlike() {
-    positiveIntegerCounter.decrease();
+    likeCount.decrease();
   }
 
   public void updateState(PostPublicationState state) {
@@ -70,7 +70,7 @@ public class Post {
   }
 
   public int getLikeCount() {
-    return positiveIntegerCounter.getCount();
+    return likeCount.getCount();
   }
 
   @Override
