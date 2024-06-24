@@ -47,6 +47,15 @@ class UserRelationServiceTest {
     }
 
     @Test
+    void givenFollowUserWhenFollowSelfThenThrowException() {
+        // given
+        FollowUserRequestDto sameUser = new FollowUserRequestDto(user1.getId(), user1.getId());
+
+        // when, then
+        assertThrows(IllegalArgumentException.class, () -> userRelationService.followUser(sameUser));
+    }
+
+    @Test
     void givenFollowUserWhenUnfollowThenUserUnfollowOtherUser() {
         // given
         userRelationService.followUser(relationDto);
@@ -63,5 +72,14 @@ class UserRelationServiceTest {
     void givenUnfollowUserWhenUnfollowAgainThenThrowException() {
         // when, then
         assertThrows(IllegalArgumentException.class, () -> userRelationService.unfollowUser(relationDto));
+    }
+
+    @Test
+    void givenUnfollowUserWhenUnfollowSelfThenThrowException() {
+        // given
+        FollowUserRequestDto sameUser = new FollowUserRequestDto(user1.getId(), user1.getId());
+
+        // when, then
+        assertThrows(IllegalArgumentException.class, () -> userRelationService.unfollowUser(sameUser));
     }
 }
