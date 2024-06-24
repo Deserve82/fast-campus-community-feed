@@ -1,7 +1,5 @@
 package org.fastcampus.community_feed.post.domain.content;
 
-import org.fastcampus.community_feed.post.domain.PostPublicationState;
-
 public class PostContent extends Content {
 
     private static final int MIN_CONTENT_LENGTH = 5;
