@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class CommentContentTest {
     @Test
@@ -24,10 +27,11 @@ class CommentContentTest {
         assertThrows(IllegalArgumentException.class, () -> new CommentContent(content));
     }
 
-    @Test
-    void givenContentLengthIsOverLimitAndKoreanCreatePostContentThenThrowError() {
+    @ParameterizedTest
+    @ValueSource(strings = {"뷁", "닭", "굵"})
+    void givenContentLengthIsOverLimitAndKoreanCreatePostContentThenThrowError(String koreanContent) {
         // given
-        String content = "뷁".repeat(101);
+        String content = koreanContent.repeat(101);
 
         // when, then
         assertThrows(IllegalArgumentException.class, () -> new CommentContent(content));
@@ -42,17 +46,9 @@ class CommentContentTest {
         assertDoesNotThrow(() -> new CommentContent(content));
     }
 
-    @Test
-    void givenContentLengthIsEmptyLimitCreatePostContentThenThrowError() {
-        // given
-        String content = "";
-
-        // when, then
-        assertThrows(IllegalArgumentException.class, () -> new CommentContent(content));
-    }
-
-    @Test
-    void givenContentLengthIsNullLimitCreatePostContentThenThrowError() {
-        assertThrows(IllegalArgumentException.class, () -> new CommentContent(null));
+    @ParameterizedTest
+    @NullAndEmptySource
+    void givenContentLengthIsEmptyLimitCreatePostContentThenThrowError(String source) {
+        assertThrows(IllegalArgumentException.class, () -> new CommentContent(source));
     }
 }

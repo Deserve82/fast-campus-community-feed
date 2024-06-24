@@ -15,12 +15,10 @@ class PostTest {
     private final User otherUser = new User(2L, new UserInfo("name", "url"));
 
     private final PostContent postContent = new PostContent("content");
+    private final Post post = new Post(1L, user, postContent);
 
     @Test
     void givenPostCreatedWhenLikeThenLikeCountShouldBe1() {
-        // given
-        Post post = new Post(1L, user, postContent);
-
         // when
         post.like(otherUser);
 
@@ -29,9 +27,14 @@ class PostTest {
     }
 
     @Test
+    void givenPostCreatedWhenLikeByOtherUserThenThrowException() {
+        // when, then
+        assertThrows(IllegalArgumentException.class, () -> post.like(user));
+    }
+
+    @Test
     void givenPostCreatedAndLikeWhenUnlikeThenLikeCountShouldBe0() {
         // given
-        Post post = new Post(1L, user, postContent);
         post.like(otherUser);
 
         // when
@@ -43,9 +46,6 @@ class PostTest {
 
     @Test
     void givenPostCreatedWhenUnlikeThenLikeCountShouldBe0() {
-        // given
-        Post post = new Post(1L, user, postContent);
-
         // when
         post.unlike();
 
@@ -53,20 +53,10 @@ class PostTest {
         assertEquals(0, post.getLikeCount());
     }
 
-    @Test
-    void givenPostCreatedWhenLikeByOtherUserThenThrowException() {
-        // given
-        Post post = new Post(1L, user, postContent);
-        post.like(otherUser);
-
-        // when, then
-        assertThrows(IllegalArgumentException.class, () -> post.like(user));
-    }
 
     @Test
     void givenPostCreatedWhenUpdateContentThenContentShouldBeUpdated() {
         // given
-        Post post = new Post(1L, user, postContent);
         String newPostContent = "new content";
 
         // when
@@ -80,7 +70,6 @@ class PostTest {
     @Test
     void givenPostCreatedWhenUpdateContentByOtherUserThenThrowException() {
         // given
-        Post post = new Post(1L, user, postContent);
         String newPostContent = "new content";
 
         // when, then
@@ -90,7 +79,6 @@ class PostTest {
     @Test
     void givenPostCreatedWhenUpdateStateThenStateShouldBeUpdated() {
         // given
-        Post post = new Post(1L, user, postContent);
         PostPublicationState newPostState = PostPublicationState.PRIVATE;
 
         // when
