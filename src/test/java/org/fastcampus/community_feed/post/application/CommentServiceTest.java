@@ -22,11 +22,11 @@ class CommentServiceTest extends PostServiceTestTemplate {
     private final CommentService commentService = FakeObjectFactory.getCommentService();
     private final String commentContent = "this is test comment";
 
+    CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(), user.getId(), commentContent);
+
+
     @Test
     void givenCreateCommentRequestDtoWhenCreateCommentThenReturnComment() {
-        // given
-        CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(), user.getId(), commentContent);
-
         // when
         Comment comment = commentService.createComment(dto);
 
@@ -38,7 +38,6 @@ class CommentServiceTest extends PostServiceTestTemplate {
     @Test
     void givenCreateCommentWhenUpdateCommentThenReturnUpdatedComment() {
         // given
-        CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(), user.getId(), commentContent);
         Comment comment = commentService.createComment(dto);
 
         // when
@@ -55,7 +54,6 @@ class CommentServiceTest extends PostServiceTestTemplate {
     @Test
     void givenCommentWhenLikeCommentThenReturnCommentWithLike() {
         // given
-        CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(), user.getId(), commentContent);
         Comment comment = commentService.createComment(dto);
 
         // when
@@ -69,7 +67,6 @@ class CommentServiceTest extends PostServiceTestTemplate {
     @Test
     void givenCommentWhenUnlikeCommentThenReturnCommentWithoutLike() {
         // given
-        CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(), user.getId(), commentContent);
         Comment comment = commentService.createComment(dto);
 
         // when
@@ -84,7 +81,6 @@ class CommentServiceTest extends PostServiceTestTemplate {
     @Test
     void givenCommentWhenLikeSelfThenThrowException() {
         // given
-        CreateCommentRequestDto dto = new CreateCommentRequestDto(post.getId(), user.getId(), commentContent);
         Comment comment = commentService.createComment(dto);
 
         // when, then
