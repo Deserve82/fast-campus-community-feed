@@ -15,6 +15,22 @@ public class FakeLikeRepository implements LikeRepository {
     Map<Comment, Set<User>> commentLikes = new HashMap<>();
 
     @Override
+    public boolean checkLike(Post post, User user) {
+        if (postLikes.get(post) == null) {
+            return false;
+        }
+        return postLikes.get(post).contains(user);
+    }
+
+    @Override
+    public boolean checkLike(Comment post, User user) {
+        if (commentLikes.get(post) == null) {
+            return false;
+        }
+        return commentLikes.get(post).contains(user);
+    }
+
+    @Override
     public void like(Post post, User user) {
         Set<User> users = postLikes.get(post);
         if (users == null) {

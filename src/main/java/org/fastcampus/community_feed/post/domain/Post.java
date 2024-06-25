@@ -3,6 +3,7 @@ package org.fastcampus.community_feed.post.domain;
 import java.util.Objects;
 import org.fastcampus.community_feed.post.domain.content.Content;
 import org.fastcampus.community_feed.common.domain.PositiveIntegerCounter;
+import org.fastcampus.community_feed.post.domain.content.PostContent;
 import org.fastcampus.community_feed.user.domain.User;
 
 public class Post {
@@ -29,6 +30,10 @@ public class Post {
 
   public Post(Long id, User author, Content content) {
     this(id, author, content, PostPublicationState.PUBLIC, new PositiveIntegerCounter());
+  }
+
+  public Post(Long id, User author, String content) {
+    this(id, author, new PostContent(content), PostPublicationState.PUBLIC, new PositiveIntegerCounter());
   }
 
   public void updateContent(User user, String content) {

@@ -14,8 +14,7 @@ class PostTest {
     private final User user = new User(1L, new UserInfo("name", "url"));
     private final User otherUser = new User(2L, new UserInfo("name", "url"));
 
-    private final PostContent postContent = new PostContent("content");
-    private final Post post = new Post(1L, user, postContent);
+    private final Post post = new Post(1L, user, "content");
 
     @Test
     void givenPostCreatedWhenLikeThenLikeCountShouldBe1() {

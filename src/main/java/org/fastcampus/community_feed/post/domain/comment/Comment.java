@@ -2,6 +2,7 @@ package org.fastcampus.community_feed.post.domain.comment;
 
 import java.util.Objects;
 import org.fastcampus.community_feed.post.domain.Post;
+import org.fastcampus.community_feed.post.domain.content.CommentContent;
 import org.fastcampus.community_feed.post.domain.content.Content;
 import org.fastcampus.community_feed.common.domain.PositiveIntegerCounter;
 import org.fastcampus.community_feed.user.domain.User;
@@ -34,6 +35,10 @@ public class Comment {
 
   public Comment(Long id, Post post, User author, Content content) {
     this(id, post, author, content, new PositiveIntegerCounter());
+  }
+
+  public Comment(Long id, Post post, User author, String content) {
+   this(id, post, author, new CommentContent(content), new PositiveIntegerCounter());
   }
 
   public void updateContent(User user, String content) {

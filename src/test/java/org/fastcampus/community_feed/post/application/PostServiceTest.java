@@ -14,14 +14,7 @@ import org.fastcampus.community_feed.user.application.dto.CreateUserRequestDto;
 import org.fastcampus.community_feed.user.domain.User;
 import org.junit.jupiter.api.Test;
 
-class PostServiceTest {
-
-    private final UserService userService = FakeObjectFactory.getUserService();
-    private final PostService postService = FakeObjectFactory.getPostService();
-
-    private final User user = userService.createUser(new CreateUserRequestDto("user1", null));;
-    private final User otherUser = userService.createUser(new CreateUserRequestDto("user1", null));;
-
+class PostServiceTest extends PostServiceTestTemplate {
 
     @Test
     void givenPostRequestDtoWhenCreateThenReturnPost() {

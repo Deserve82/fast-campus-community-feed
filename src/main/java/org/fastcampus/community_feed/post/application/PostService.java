@@ -30,8 +30,7 @@ public class PostService {
 
     public Post createPost(CreatePostRequestDto dto) {
         User author = userService.getUser(dto.userId());
-        Content content = new PostContent(dto.content());
-        Post post = new Post(null, author, content);
+        Post post = new Post(null, author, dto.content());
         return postRepository.save(post);
     }
 
@@ -47,6 +46,11 @@ public class PostService {
     public void likePost(LikeRequestDto dto) {
         Post post = getPost(dto.id());
         User user = userService.getUser(dto.userId());
+
+        if (likeRepository.checkLike(post, user)) {
+            return;
+        }
+
         post.like(user);
         likeRepository.like(post, user);
     }
@@ -54,7 +58,10 @@ public class PostService {
     public void unlikePost(LikeRequestDto dto) {
         Post post = getPost(dto.id());
         User user = userService.getUser(dto.userId());
-        post.unlike();
-        likeRepository.unlike(post, user);
+
+        if (likeRepository.checkLike(post, user)) {
+            post.unlike();
+            likeRepository.unlike(post, user);
+        }
     }
 }

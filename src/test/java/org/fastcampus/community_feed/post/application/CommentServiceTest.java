@@ -17,27 +17,10 @@ import org.fastcampus.community_feed.user.application.dto.CreateUserRequestDto;
 import org.fastcampus.community_feed.user.domain.User;
 import org.junit.jupiter.api.Test;
 
-class CommentServiceTest {
+class CommentServiceTest extends PostServiceTestTemplate {
 
-    private static final UserService userService = FakeObjectFactory.getUserService();
-    private static final PostService postService = FakeObjectFactory.getPostService();
     private final CommentService commentService = FakeObjectFactory.getCommentService();
-
-    private static final User user;
-    private static final User otherUser;
-
-    private static final Post post;
-    private static final String commentContent = "this is test comment";
-
-    static {
-        CreateUserRequestDto userDto = new CreateUserRequestDto("test", "");
-        user = userService.createUser(userDto);
-        otherUser = userService.createUser(userDto);
-
-
-        CreatePostRequestDto dto = new CreatePostRequestDto(user.getId(), "this is test content", PostPublicationState.PUBLIC);
-        post = postService.createPost(dto);
-    }
+    private final String commentContent = "this is test comment";
 
     @Test
     void givenCreateCommentRequestDtoWhenCreateCommentThenReturnComment() {

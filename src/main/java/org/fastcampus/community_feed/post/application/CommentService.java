@@ -30,10 +30,9 @@ public class CommentService {
     }
 
     public Comment createComment(CreateCommentRequestDto dto) {
-        CommentContent commentContent = new CommentContent(dto.content());
         Post post = postService.getPost(dto.postId());
         User author = userService.getUser(dto.authorId());
-        Comment comment = new Comment(null, post, author, commentContent);
+        Comment comment = new Comment(null, post, author, dto.content());
         return commentRepository.save(comment);
     }
 
@@ -47,6 +46,11 @@ public class CommentService {
     public void likeComment(LikeRequestDto dto) {
         Comment comment = getComment(dto.id());
         User user = userService.getUser(dto.userId());
+
+        if (likeRepository.checkLike(comment, user)) {
+            return;
+        }
+
         comment.like(user);
         likeRepository.like(comment, user);
     }
@@ -54,7 +58,10 @@ public class CommentService {
     public void unlikeComment(LikeRequestDto dto) {
         Comment comment = getComment(dto.id());
         User user = userService.getUser(dto.userId());
-        comment.unlike();
-        likeRepository.unlike(comment, user);
+
+        if (likeRepository.checkLike(comment, user)) {
+            comment.unlike();
+            likeRepository.unlike(comment, user);
+        }
     }
 }
