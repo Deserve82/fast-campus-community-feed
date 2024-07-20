@@ -28,6 +28,9 @@ public class FakeObjectFactory {
     private static final PostService postService = new PostService(userService, fakePostRepository, fakeLikeRepository);
     private static final CommentService commentService = new CommentService(userService, postService, fakeCommentRepository, fakeLikeRepository);
 
+    private FakeObjectFactory() {
+    }
+
     public static UserService getUserService() {
         return userService;
     }
