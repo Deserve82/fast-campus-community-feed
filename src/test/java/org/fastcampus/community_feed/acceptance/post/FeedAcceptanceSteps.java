@@ -1,8 +1,6 @@
 package org.fastcampus.community_feed.acceptance.post;
 
 import io.restassured.RestAssured;
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
 import java.util.List;
 import org.fastcampus.community_feed.post.application.dto.CreatePostRequestDto;
 import org.fastcampus.community_feed.post.application.dto.GetPostContentResponseDto;
