@@ -5,10 +5,10 @@ import static org.fastcampus.community_feed.acceptance.post.FeedAcceptanceSteps.
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import org.fastcampus.community_feed.acceptance.utils.AcceptanceTestTemplate;
 import org.fastcampus.community_feed.post.application.dto.CreatePostRequestDto;
 import org.fastcampus.community_feed.post.application.dto.GetPostContentResponseDto;
 import org.fastcampus.community_feed.post.domain.PostPublicationState;
-import org.fastcampus.community_feed.acceptance.utils.AcceptanceTestTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,12 +19,15 @@ class FeedAcceptanceTest extends AcceptanceTestTemplate {
      * User 1 --- follow ---> User 2
      * User 1 --- follow ---> User 3
      */
-
     @BeforeEach
     void init() {
         super.setUp();
     }
 
+    /**
+     * User 2 create Post 1
+     * User 1 Get Post 1 From Feed
+     */
     @Test
     void givenUserHasFollowerWhenCreatePostThenFollowerFeedCanGetPost() {
         // given

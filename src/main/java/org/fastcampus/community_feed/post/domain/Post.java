@@ -3,8 +3,8 @@ package org.fastcampus.community_feed.post.domain;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
-import org.fastcampus.community_feed.post.domain.content.Content;
 import org.fastcampus.community_feed.common.domain.PositiveIntegerCounter;
+import org.fastcampus.community_feed.post.domain.content.Content;
 import org.fastcampus.community_feed.post.domain.content.PostContent;
 import org.fastcampus.community_feed.user.domain.User;
 

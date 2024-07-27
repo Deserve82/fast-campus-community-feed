@@ -3,10 +3,10 @@ package org.fastcampus.community_feed.post.domain.comment;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
+import org.fastcampus.community_feed.common.domain.PositiveIntegerCounter;
 import org.fastcampus.community_feed.post.domain.Post;
 import org.fastcampus.community_feed.post.domain.content.CommentContent;
 import org.fastcampus.community_feed.post.domain.content.Content;
-import org.fastcampus.community_feed.common.domain.PositiveIntegerCounter;
 import org.fastcampus.community_feed.user.domain.User;
 
 @Getter

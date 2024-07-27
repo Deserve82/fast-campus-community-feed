@@ -1,6 +1,5 @@
 package org.fastcampus.community_feed.post.application.interfaces;
 
-import java.util.Optional;
 import org.fastcampus.community_feed.post.domain.comment.Comment;
 
 public interface CommentRepository {

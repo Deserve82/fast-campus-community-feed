@@ -2,7 +2,6 @@ package org.fastcampus.community_feed.post.repository;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import org.fastcampus.community_feed.post.application.interfaces.CommentRepository;
 import org.fastcampus.community_feed.post.domain.comment.Comment;
 

@@ -1,7 +1,6 @@
 package org.fastcampus.community_feed.user.repository.jpa;
 
 import java.util.List;
-import org.fastcampus.community_feed.user.domain.User;
 import org.fastcampus.community_feed.user.repository.entity.UserRelationEntity;
 import org.fastcampus.community_feed.user.repository.entity.UserRelationId;
 import org.springframework.data.jpa.repository.JpaRepository;

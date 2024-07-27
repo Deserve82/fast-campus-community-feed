@@ -2,7 +2,6 @@ package org.fastcampus.community_feed.acceptance.utils;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.IdClass;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Table;
 import java.util.HashSet;

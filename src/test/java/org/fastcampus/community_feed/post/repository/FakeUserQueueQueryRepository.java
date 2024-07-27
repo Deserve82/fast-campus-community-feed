@@ -2,7 +2,6 @@ package org.fastcampus.community_feed.post.repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.fastcampus.community_feed.post.application.dto.GetPostContentResponseDto;
 import org.fastcampus.community_feed.post.repository.entity.post.PostEntity;
 import org.fastcampus.community_feed.post.repository.post_queue.UserPostQueueQueryRepository;
