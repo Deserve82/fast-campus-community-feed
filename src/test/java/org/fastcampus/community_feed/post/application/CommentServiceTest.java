@@ -42,9 +42,9 @@ class CommentServiceTest extends PostServiceTestTemplate {
 
         // when
         String updatedCommentContent = "this is updated comment";
-        UpdateCommentRequestDto updateCommentRequestDto = new UpdateCommentRequestDto(comment.getId(),
+        UpdateCommentRequestDto updateCommentRequestDto = new UpdateCommentRequestDto(
                 user.getId(), updatedCommentContent);
-        Comment updatedComment = commentService.updateComment(updateCommentRequestDto);
+        Comment updatedComment = commentService.updateComment(comment.getId(), updateCommentRequestDto);
 
         // then
         Content content = updatedComment.getContent();
