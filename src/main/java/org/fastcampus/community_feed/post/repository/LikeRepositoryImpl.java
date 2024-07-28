@@ -1,5 +1,7 @@
 package org.fastcampus.community_feed.post.repository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.fastcampus.community_feed.post.application.interfaces.LikeRepository;
 import org.fastcampus.community_feed.post.domain.Post;
@@ -18,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class LikeRepositoryImpl implements LikeRepository {
 
+    @PersistenceContext
+    private final EntityManager entityManager;
     private final JpaPostRepository jpaPostRepository;
     private final JpaCommentRepository jpaCommentRepository;
     private final JpaLikeRepository jpaLikeRepository;
@@ -38,7 +42,7 @@ public class LikeRepositoryImpl implements LikeRepository {
     @Transactional
     public void like(Post post, User user) {
         LikeEntity entity = new LikeEntity(post, user);
-        jpaLikeRepository.save(entity);
+        entityManager.persist(entity);
         jpaPostRepository.updateLikeCount(post);
     }
 
@@ -46,7 +50,7 @@ public class LikeRepositoryImpl implements LikeRepository {
     @Transactional
     public void like(Comment comment, User user) {
         LikeEntity entity = new LikeEntity(comment, user);
-        jpaLikeRepository.save(entity);
+        entityManager.persist(entity);
         jpaCommentRepository.updateLikeCount(comment);
     }
 
