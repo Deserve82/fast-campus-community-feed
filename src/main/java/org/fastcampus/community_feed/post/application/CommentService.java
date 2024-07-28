@@ -45,7 +45,7 @@ public class CommentService {
     }
 
     public void likeComment(LikeRequestDto dto) {
-        Comment comment = getComment(dto.id());
+        Comment comment = getComment(dto.targetId());
         User user = userService.getUser(dto.userId());
 
         if (likeRepository.checkLike(comment, user)) {
@@ -57,7 +57,7 @@ public class CommentService {
     }
 
     public void unlikeComment(LikeRequestDto dto) {
-        Comment comment = getComment(dto.id());
+        Comment comment = getComment(dto.targetId());
         User user = userService.getUser(dto.userId());
 
         if (likeRepository.checkLike(comment, user)) {
