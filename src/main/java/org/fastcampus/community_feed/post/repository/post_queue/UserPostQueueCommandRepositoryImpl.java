@@ -13,17 +13,17 @@ import org.springframework.stereotype.Repository;
 public class UserPostQueueCommandRepositoryImpl implements UserPostQueueCommandRepository {
     private final JpaPostRepository jpaPostRepository;
     private final JpaUserRelationRepository jpaUserRelationRepository;
-    private final UserQueueRepository queueRepository;
+    private final UserQueueRedisRepository queueRepository;
 
     public void publishPost(PostEntity postEntity) {
         UserEntity authorEntity = postEntity.getAuthor();
         List<Long> followers = jpaUserRelationRepository.findFollowers(authorEntity.getId());
-        followers.forEach(userId -> queueRepository.publishPostToUserQueue(postEntity, userId));
+        queueRepository.publishPostToUserListQueue(postEntity, followers);
     }
 
     public void saveFollowPost(Long userId, Long targetId) {
         List<PostEntity> postEntities = jpaPostRepository.findAllPostIdsByAuthorId(targetId);
-        postEntities.forEach(postEntity -> queueRepository.publishPostToUserQueue(postEntity, userId));
+        queueRepository.publishPostListToUserQueue(postEntities, userId);
     }
 
     public void deleteUnfollowPost(Long userId, Long targetId) {
