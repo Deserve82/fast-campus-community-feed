@@ -1,5 +1,8 @@
 package org.fastcampus.community_feed.acceptance.utils;
 
+import static org.fastcampus.community_feed.acceptance.post.UserAcceptanceSteps.followUser;
+
+import org.fastcampus.community_feed.user.application.dto.FollowUserRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +21,9 @@ public class AcceptanceTestTemplate {
     public void setUp() {
         databaseCleanup.execute();
         dataLoader.loadData();
+
+        followUser(new FollowUserRequestDto(1L, 2L));
+        followUser(new FollowUserRequestDto(2L, 3L));
     }
 
 }

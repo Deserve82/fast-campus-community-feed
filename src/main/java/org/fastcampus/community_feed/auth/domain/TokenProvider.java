@@ -3,17 +3,16 @@ package org.fastcampus.community_feed.auth.domain;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import java.security.Key;
 import java.util.Date;
 import javax.crypto.SecretKey;
 
 public class TokenProvider {
 
-    private final String secretKey;
+    private final SecretKey key;
     private static final long TOKEN_VALID_TIME = 1000L * 60 * 60; // 1시간
 
     public TokenProvider(String secretKey) {
-        this.secretKey = secretKey;
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
     public String createToken(Long userId, String role) {
@@ -22,7 +21,6 @@ public class TokenProvider {
                 .build();
         Date now = new Date();
         Date validity = new Date(now.getTime() + TOKEN_VALID_TIME);
-        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
         return Jwts.builder()
                 .claims(claims)
@@ -34,7 +32,6 @@ public class TokenProvider {
     }
 
     public Long getUserId(String token) {
-        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
         return Long.parseLong(
                 Jwts.parser()
                         .verifyWith(key)
@@ -46,8 +43,6 @@ public class TokenProvider {
     }
 
     public String getRoles(String token) {
-        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
-
         return Jwts.parser()
                 .verifyWith(key)
                 .build()
