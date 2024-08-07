@@ -1,5 +1,6 @@
 package org.fastcampus.community_feed.post.repository.post_queue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +42,9 @@ public class UserQueueRedisRepositoryImpl implements UserQueueRedisRepository {
     }
 
     public List<PostEntity> getPostsByUserId(Long userId) {
-        return List.copyOf(queue.get(userId));
+        if (queue.containsKey(userId)) {
+            return List.copyOf(queue.get(userId));
+        }
+        return new ArrayList<>();
     }
 }

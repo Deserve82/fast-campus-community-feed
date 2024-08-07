@@ -41,7 +41,7 @@ public class AuthService {
 
         UserAuth userAuth = new UserAuth(dto.email(), dto.password(), dto.role());
         User user = new User(dto.name(), dto.profileImageUrl());
-        userAuthRepository.registerUser(userAuth, user);
+        userAuth = userAuthRepository.registerUser(userAuth, user);
 
         return createToken(userAuth);
     }
