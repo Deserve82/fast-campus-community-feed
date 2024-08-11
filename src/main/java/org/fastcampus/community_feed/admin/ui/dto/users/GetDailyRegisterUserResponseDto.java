@@ -1,4 +1,4 @@
-package org.fastcampus.community_feed.stats.ui.query;
+package org.fastcampus.community_feed.admin.ui.dto.users;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DailyRegisterUserResponse {
+public class GetDailyRegisterUserResponseDto {
     private LocalDate date;
     private Long count;
 }

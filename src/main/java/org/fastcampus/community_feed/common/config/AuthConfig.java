@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class AuthConfig implements WebMvcConfigurer {
-    private TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
     public AuthConfig(@Value("${secret-key}") String secretKey) {
         this.tokenProvider = new TokenProvider(secretKey);
