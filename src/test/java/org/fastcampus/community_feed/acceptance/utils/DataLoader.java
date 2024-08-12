@@ -21,4 +21,22 @@ public class DataLoader {
                     .executeUpdate();
         }
     }
+
+    public String getEmailToken(String email) {
+        return entityManager.createQuery("SELECT token FROM EmailVerificationEntity WHERE email = :email", String.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
+    public boolean isEmailVerified(String email) {
+        return entityManager.createQuery("SELECT isVerified FROM EmailVerificationEntity WHERE email = :email", Boolean.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
+    public Long getUserId(String email) {
+        return entityManager.createQuery("SELECT userId FROM UserAuthEntity WHERE email = :email", Long.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
 }
