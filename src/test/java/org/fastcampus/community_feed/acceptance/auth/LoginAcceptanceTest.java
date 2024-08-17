@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 class LoginAcceptanceTest extends AcceptanceTestTemplate {
 
     private final String email = "email@email.com";
-    private final String password = "password";
     private final TokenProvider tokenProvider = new TokenProvider("testteststestteststestteststestteststestteststestteststestteststestteststestteststesttests");
 
 
@@ -32,16 +31,13 @@ class LoginAcceptanceTest extends AcceptanceTestTemplate {
     @BeforeEach
     void init() {
         super.cleanUp();
-        requestSendEmail(new SendEmailRequestDto(email));
-        String token = getEmailToken(email);
-        requestVerifyEmail(email, token);
-        registerUser(new CreateUserAuthRequestDto(email, password, "USER", "nickname", "profile"));
+        this.createUser(email);
     }
 
     @Test
     void givenEmailAndPassword_whenLogin_thenToken() {
         // given
-        LoginRequestDto dto = new LoginRequestDto(email, password);
+        LoginRequestDto dto = new LoginRequestDto(email, "password");
 
         // when
         String token = requestLoginGetToken(dto);

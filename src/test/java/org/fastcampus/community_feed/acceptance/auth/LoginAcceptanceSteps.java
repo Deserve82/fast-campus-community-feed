@@ -29,5 +29,4 @@ public class LoginAcceptanceSteps {
                 .jsonPath()
                 .getObject("code", Integer.class);
     }
-
 }

@@ -45,4 +45,8 @@ public class AcceptanceTestTemplate {
     protected String login(String email) {
         return requestLoginGetToken(new LoginRequestDto(email, "password"));
     }
+
+    protected void createUser(String email) {
+        dataLoader.createUser(email);
+    }
 }

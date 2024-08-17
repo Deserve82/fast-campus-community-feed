@@ -47,7 +47,7 @@ public class DataLoader {
                 .getSingleResult();
     }
 
-    private void createUser(String email) {
+    public void createUser(String email) {
         String password = "password";
         requestSendEmail(new SendEmailRequestDto(email));
         String token = getEmailToken(email);
