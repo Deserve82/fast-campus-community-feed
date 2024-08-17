@@ -11,8 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class AuthConfig implements WebMvcConfigurer {
     private final TokenProvider tokenProvider;
 
-    public AuthConfig(@Value("${secret-key}") String secretKey) {
-        this.tokenProvider = new TokenProvider(secretKey);
+    public AuthConfig(TokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
     }
 
     @Override

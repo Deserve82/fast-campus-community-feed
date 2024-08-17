@@ -22,11 +22,11 @@ public class AuthService {
     private final UserAuthRepository userAuthRepository;
 
     public AuthService(
-            @Value("${secret-key}") String secretKey,
+            TokenProvider tokenProvider,
             EmailVerificationRepository emailVerificationRepository,
             UserAuthRepository userAuthRepository
     ) {
-        this.tokenProvider = new TokenProvider(secretKey);
+        this.tokenProvider = tokenProvider;
         this.emailVerificationRepository = emailVerificationRepository;
         this.userAuthRepository = userAuthRepository;
     }

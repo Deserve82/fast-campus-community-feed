@@ -21,7 +21,6 @@ class FeedAcceptanceTest extends AcceptanceTestTemplate {
     /**
      * User 1 --- follow ---> User 2
      * User 1 --- follow ---> User 3
-     * User 4 --- follow ---> User 2
      */
     @BeforeEach
     void init() {
