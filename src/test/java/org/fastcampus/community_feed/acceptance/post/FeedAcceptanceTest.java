@@ -1,6 +1,7 @@
 package org.fastcampus.community_feed.acceptance.post;
 
 import static org.fastcampus.community_feed.acceptance.post.FeedAcceptanceSteps.requestCreatePost;
+import static org.fastcampus.community_feed.acceptance.post.FeedAcceptanceSteps.requestFeedCode;
 import static org.fastcampus.community_feed.acceptance.post.FeedAcceptanceSteps.requestFeedList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,13 +16,17 @@ import org.junit.jupiter.api.Test;
 
 class FeedAcceptanceTest extends AcceptanceTestTemplate {
 
+    private String token;
+
     /**
      * User 1 --- follow ---> User 2
      * User 1 --- follow ---> User 3
+     * User 4 --- follow ---> User 2
      */
     @BeforeEach
     void init() {
         super.setUp();
+        this.token = login("user1@test.com");
     }
 
     /**
@@ -35,10 +40,19 @@ class FeedAcceptanceTest extends AcceptanceTestTemplate {
         Long createdPostId = requestCreatePost(dto);
 
         // when, 팔로워의 피드 요청
-        List<GetPostContentResponseDto> result = requestFeedList(1L);
+        List<GetPostContentResponseDto> result = requestFeedList(this.token);
 
         // then
         assertEquals(1, result.size());
         assertEquals(createdPostId, result.get(0).getId());
+    }
+
+    @Test
+    void givenUserHasFollowerAndCreatePostWhenGetPostThenReturnPostWithInvalidToken() {
+        // when, 팔로워의 피드 요청
+        Integer resultCode = requestFeedCode("invalid token");
+
+        // then
+        assertEquals(400, resultCode);
     }
 }

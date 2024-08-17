@@ -1,8 +1,16 @@
 package org.fastcampus.community_feed.acceptance.utils;
 
 
+import static org.fastcampus.community_feed.acceptance.auth.LoginAcceptanceSteps.requestLoginGetToken;
+import static org.fastcampus.community_feed.acceptance.auth.SignUpAcceptanceSteps.registerUser;
+import static org.fastcampus.community_feed.acceptance.auth.SignUpAcceptanceSteps.requestSendEmail;
+import static org.fastcampus.community_feed.acceptance.auth.SignUpAcceptanceSteps.requestVerifyEmail;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.fastcampus.community_feed.auth.application.dto.CreateUserAuthRequestDto;
+import org.fastcampus.community_feed.auth.application.dto.LoginRequestDto;
+import org.fastcampus.community_feed.auth.application.dto.SendEmailRequestDto;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +23,8 @@ public class DataLoader {
     @Transactional
     public void loadData() {
         // user 1, 2, 3 생성
-        for (int i = 0; i < 3; i++) {
-            entityManager
-                    .createNativeQuery("insert into community_user (name, profile_image, follower_count, following_count, reg_dt, upd_dt) values ('test', '', 0, 0, now(), now())")
-                    .executeUpdate();
+        for (int i = 1; i < 4; i++) {
+            createUser("user" + i + "@test.com");
         }
     }
 
@@ -39,5 +45,13 @@ public class DataLoader {
         return entityManager.createQuery("SELECT userId FROM UserAuthEntity WHERE email = :email", Long.class)
                 .setParameter("email", email)
                 .getSingleResult();
+    }
+
+    private void createUser(String email) {
+        String password = "password";
+        requestSendEmail(new SendEmailRequestDto(email));
+        String token = getEmailToken(email);
+        requestVerifyEmail(email, token);
+        registerUser(new CreateUserAuthRequestDto(email, password, "USER", "nickname", "profile"));
     }
 }

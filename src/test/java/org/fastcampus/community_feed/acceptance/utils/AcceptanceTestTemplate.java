@@ -1,7 +1,9 @@
 package org.fastcampus.community_feed.acceptance.utils;
 
+import static org.fastcampus.community_feed.acceptance.auth.LoginAcceptanceSteps.requestLoginGetToken;
 import static org.fastcampus.community_feed.acceptance.post.UserAcceptanceSteps.followUser;
 
+import org.fastcampus.community_feed.auth.application.dto.LoginRequestDto;
 import org.fastcampus.community_feed.user.application.dto.FollowUserRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,5 +40,9 @@ public class AcceptanceTestTemplate {
 
     protected Long getUserId(String email) {
         return dataLoader.getUserId(email);
+    }
+
+    protected String login(String email) {
+        return requestLoginGetToken(new LoginRequestDto(email, "password"));
     }
 }
