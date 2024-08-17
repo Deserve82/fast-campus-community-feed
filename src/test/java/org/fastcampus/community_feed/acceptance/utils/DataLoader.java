@@ -23,9 +23,10 @@ public class DataLoader {
     }
 
     public String getEmailToken(String email) {
-        return entityManager.createQuery("SELECT token FROM EmailVerificationEntity WHERE email = :email", String.class)
-                .setParameter("email", email)
-                .getSingleResult();
+        return entityManager.createNativeQuery("SELECT token FROM community_email_verification WHERE email = ?", String.class)
+                .setParameter(1, email)
+                .getSingleResult()
+                .toString();
     }
 
     public boolean isEmailVerified(String email) {

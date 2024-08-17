@@ -39,6 +39,18 @@ class AuthAcceptanceTest extends AcceptanceTestTemplate {
     }
 
     @Test
+    void givenInvalidEmail_whenSendEmail_thenVerificationTokenSaved() {
+        // given
+        SendEmailRequestDto dto = new SendEmailRequestDto("invalid email");
+
+        // when
+        Integer code = requestSendEmail(dto);
+
+        // then
+        assertEquals(400, code);
+    }
+
+    @Test
     void givenSendEmail_whenVerifyEmail_thenEmailVerified() {
         // given
         requestSendEmail(new SendEmailRequestDto(email));
