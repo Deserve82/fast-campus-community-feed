@@ -53,7 +53,6 @@ public class AdminController {
         modelAndView.setViewName("posts");
 
         GetTableListResponseDto<GetPostTableResponseDto> result = userTableQueryRepository.getPostTable(dto);
-        System.out.println(result.getTableList().size());
         modelAndView.addObject("requestDto", dto);
         modelAndView.addObject("postList", result.getTableList());
         modelAndView.addObject("totalCount", result.getTotalCount());
