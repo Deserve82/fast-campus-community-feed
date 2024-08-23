@@ -80,7 +80,7 @@ public class TableQueryRepositoryImpl implements TableQueryRepository {
 //                                userAuthEntity.email.as("email"),
 //                                userEntity.name.as("name"),
 //                                userAuthEntity.role.as("role"),
-//                                userEntity.regDate.as("createdAt"),
+//                                userEntity.regDt.as("createdAt"),
 //                                userEntity.updDt.as("updatedAt"),
 //                                userAuthEntity.lastLoginDt.as("lastLoginAt")
 //                        )
@@ -142,7 +142,10 @@ public class TableQueryRepositoryImpl implements TableQueryRepository {
     }
 
     private BooleanExpression likeName(String name) {
-        return name != null ? userEntity.name.like(name + "%") : null;
+        if (name == null || name.isBlank()) {
+            return null;
+        }
+        return userEntity.name.like(name + "%");
     }
 
     private BooleanExpression eqPostId(Long postId) {
